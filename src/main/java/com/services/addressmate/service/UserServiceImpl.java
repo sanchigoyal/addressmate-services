@@ -13,6 +13,7 @@ import com.services.addressmate.dao.UserProfileDao;
 import com.services.addressmate.exception.BeanEntityConversionException;
 import com.services.addressmate.exception.ResourceNotFoundException;
 import com.services.addressmate.util.helper.LinkGenerator;
+import com.services.addressmate.util.security.Crypt;
 
 /**
  * @author Sanchi
@@ -98,7 +99,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean validate(UserProfile user, String password) {
-		if(password!= null && password.equals(user.getPassword())){
+		String encryptedPassword = Crypt.get_SHA_1_SecurePassword(password, user.getSalt());
+		
+		/* validating encrypted password */
+		if(encryptedPassword!= null && encryptedPassword.equals(user.getPassword())){
 			return true;
 		}
 		return false;
@@ -108,9 +112,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void addLink(UserProfile user, UriInfo uriInfo) {
 		/* add link to self */
-		user.addLink(LinkGenerator.getUserProfileResourceLink(uriInfo, user.getUserName(), user.getPassword()), "self");
-		/* add link to companies */
-		user.addLink(LinkGenerator.getCompanyResourceLink(uriInfo), "companies");
+		user.addLink(LinkGenerator.getUserProfileResourceLink(uriInfo, user.getEmail(), user.getPassword()), "self");
 	}
 
 }

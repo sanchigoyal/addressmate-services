@@ -29,10 +29,6 @@ public class UserProfileEntity {
 	@Column(name = "USER_ID")
 	private int userID;
 	
-	/** unique nickname of user */
-	@Column(name = "USER_NAME")
-	private String userName;
-	
 	/** email address of user */
 	@Column(name = "EMAIL")
 	private String email;
@@ -56,10 +52,6 @@ public class UserProfileEntity {
 	/** user date of registration */
 	@Column(name = "DATE_OF_REGISTRATION")
 	private Date dateOfRegistration;
-	
-	/** user last login */
-	@Column(name = "LAST_LOGIN")
-	private Date lastLogin;
 	
 	/** user UUID for URL */
 	@Column(name = "USER_UUID")
@@ -85,14 +77,12 @@ public class UserProfileEntity {
 			String salt, String firstName,String lastName, Date dateOfRegistration,
 			Date lastLogin, String userUUID){
 		this.userID = userId;
-		this.userName = userName;
 		this.email = email;
 		this.password = password;
 		this.salt = salt;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfRegistration = dateOfRegistration;
-		this.lastLogin = lastLogin;
 		this.userUUID = userUUID;
 		
 	}
@@ -113,12 +103,6 @@ public class UserProfileEntity {
 	}
 	public void setUserID(int userID) {
 		this.userID = userID;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 	public String getEmail() {
 		return email;
@@ -155,12 +139,6 @@ public class UserProfileEntity {
 	}
 	public void setDateOfRegistration(Date dateOfRegistration) {
 		this.dateOfRegistration = dateOfRegistration;
-	}
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
 	}
 	public String getUserUUID() {
 		return userUUID;

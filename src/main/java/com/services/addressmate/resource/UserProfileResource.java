@@ -1,5 +1,6 @@
 package com.services.addressmate.resource;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -20,6 +21,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.services.addressmate.util.security.Crypt;
 import com.services.addressmate.bean.UserProfile;
 import com.services.addressmate.exception.InvalidCredentialException;
 import com.services.addressmate.exception.ResourceNotFoundException;
@@ -84,20 +86,28 @@ public class UserProfileResource {
 	 * @param user
 	 * @param uriInfo
 	 * @return
+	 * @throws NoSuchAlgorithmException 
 	 */
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createUser(UserProfile user, @Context UriInfo uriInfo){
+	public Response createUser(UserProfile user, @Context UriInfo uriInfo) throws NoSuchAlgorithmException{
+		
+		String salt = null;
+		String securePassword = null;
 		
 		/* adding unique id to user resource */
 		UUID userUUID = UUID.randomUUID();
 		user.setUserUUID(userUUID.toString());
 		
+		/* encrypting password field */
+		salt = Crypt.getSalt();
+		securePassword = Crypt.get_SHA_1_SecurePassword(user.getPassword(), salt); 
+		user.setPassword(securePassword);
+		user.setSalt(salt);
+		
 		UserProfile createdUser = userService.createUserProfile(user);
-		return Response.created(uriInfo.getAbsolutePathBuilder()
-									.path(createdUser.getUserName())
-									.build())
+		return Response.status(Status.CREATED)
 				.entity(createdUser)
 				.build();
 	}
@@ -120,7 +130,6 @@ public class UserProfileResource {
 		UserProfile updatedUser = userService.updateUserProfile(user);
 		return Response.status(Status.OK)
 				.entity(updatedUser)
-				.header("Location", uriInfo.getAbsolutePathBuilder().path(updatedUser.getUserName()).build())
 			    .build();
 	}
 	

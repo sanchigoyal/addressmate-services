@@ -22,9 +22,6 @@ public class UserProfile {
 	/** unique id of user */
 	private int userID;
 	
-	/** unique nickname of user */
-	private String userName;
-	
 	/** email address of user */
 	private String email;
 	
@@ -42,9 +39,6 @@ public class UserProfile {
 	
 	/** user date of registration */
 	private Date dateOfRegistration;
-	
-	/** user last login */
-	private Date lastLogin;
 	
 	/** user UUID for URL */
 	private String userUUID;
@@ -70,18 +64,15 @@ public class UserProfile {
 		BeanUtils.copyProperties(this, entity);
 	}
 	
-	public UserProfile(int userId, String userName, String email, String password, 
-			String salt, String firstName,String lastName, Date dateOfRegistration,
-			Date lastLogin, String userUUID){
+	public UserProfile(int userId,String email, String password, 
+			String salt, String firstName,String lastName, Date dateOfRegistration, String userUUID){
 		this.userID = userId;
-		this.userName = userName;
 		this.email = email;
 		this.password = password;
 		this.salt = salt;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfRegistration = dateOfRegistration;
-		this.lastLogin = lastLogin;
 		this.userUUID = userUUID;
 		
 	}
@@ -95,12 +86,6 @@ public class UserProfile {
 	}
 	public void setUserID(int userID) {
 		this.userID = userID;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 	public String getEmail() {
 		return email;
@@ -137,12 +122,6 @@ public class UserProfile {
 	}
 	public void setDateOfRegistration(Date dateOfRegistration) {
 		this.dateOfRegistration = dateOfRegistration;
-	}
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
 	}
 	public String getUserUUID() {
 		return userUUID;

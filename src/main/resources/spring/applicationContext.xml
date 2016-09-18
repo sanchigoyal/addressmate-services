@@ -46,22 +46,4 @@
     	<bean id="userResource" class="com.services.addressmate.resource.UserProfileResource">
     		<property name="userService" ref="userService"/>
     	</bean>
-    	
-    	<!-- Company Resource -->
-    	<bean id="companyDAO" class="com.services.addressmate.dao.CompanyDaoImpl"></bean>
-    	<bean id="companyService" class="com.services.addressmate.service.CompanyServiceImpl">
-    		<property name="companyDAO" ref="companyDAO"/>
-    	</bean>
-    	<bean id="companyResource" class="com.services.addressmate.resource.CompanyResource">
-    		<property name="companyService" ref="companyService"/>
-    	</bean>
-    	
-    	<!-- UOM Resource -->
-    	<bean id="uomDAO" class="com.services.addressmate.dao.UOMDaoImpl"></bean>
-    	<bean id="uomService" class="com.services.addressmate.service.UOMServiceImpl">
-    		<property name="uomDAO" ref="uomDAO"/>
-    	</bean>
-    	<bean id="uomResource" class="com.services.addressmate.resource.UOMResource">
-    		<property name="uomService" ref="uomService"/>
-    	</bean>
 </beans>

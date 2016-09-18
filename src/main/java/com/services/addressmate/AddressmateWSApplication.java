@@ -9,8 +9,6 @@ import com.services.addressmate.exception.GenericExceptionMapper;
 import com.services.addressmate.exception.InvalidCredentialExceptionMapper;
 import com.services.addressmate.exception.ResourceNotFoundExceptionMapper;
 import com.services.addressmate.filter.VendorAuthorizationFilter;
-import com.services.addressmate.resource.CompanyResource;
-import com.services.addressmate.resource.UOMResource;
 import com.services.addressmate.resource.UserProfileResource;
 
 
@@ -29,8 +27,6 @@ public class AddressmateWSApplication extends ResourceConfig {
 		
 		// register application resources
 		register(UserProfileResource.class);
-		register(CompanyResource.class);
-		register(UOMResource.class);
 	
 		// register filters
 		register(RequestContextFilter.class);

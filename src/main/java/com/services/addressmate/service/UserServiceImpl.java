@@ -5,12 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.services.addressmate.bean.UserProfile;
 import com.services.addressmate.bean.UserProfileEntity;
 import com.services.addressmate.dao.UserProfileDao;
 import com.services.addressmate.exception.BeanEntityConversionException;
+import com.services.addressmate.exception.DuplicateEntryException;
 import com.services.addressmate.exception.ResourceNotFoundException;
 import com.services.addressmate.util.helper.LinkGenerator;
 import com.services.addressmate.util.security.Crypt;

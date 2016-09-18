@@ -5,6 +5,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 import com.services.addressmate.exception.BeanEntityConversionExceptionMapper;
+import com.services.addressmate.exception.DuplicateEntryExceptionMapper;
 import com.services.addressmate.exception.GenericExceptionMapper;
 import com.services.addressmate.exception.InvalidCredentialExceptionMapper;
 import com.services.addressmate.exception.ResourceNotFoundExceptionMapper;
@@ -37,6 +38,7 @@ public class AddressmateWSApplication extends ResourceConfig {
 		register(BeanEntityConversionExceptionMapper.class);
 		register(InvalidCredentialExceptionMapper.class);
 		register(GenericExceptionMapper.class);
+		register(DuplicateEntryExceptionMapper.class);
 		
 		// register features
 		register(JacksonFeature.class);

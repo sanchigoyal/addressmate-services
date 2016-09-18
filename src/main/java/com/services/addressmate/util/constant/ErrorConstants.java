@@ -7,4 +7,5 @@ public class ErrorConstants {
 	public static final String ERROR_BEAN_ENTITY_CONVERSION = "1003";
 	public static final String ERROR_INVALID_USER_CREDENTIAL = "1004";
 	public static final String ERROR_INVALID_VENDOR_CREDENTIAL = "1005";
+	public static final String ERROR_ENTRY_ALREADY_EXIST = "1006";
 }

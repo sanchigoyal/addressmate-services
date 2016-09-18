@@ -5,9 +5,11 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.services.addressmate.bean.UserProfileEntity;
+import com.services.addressmate.exception.DuplicateEntryException;
 import com.services.addressmate.exception.ResourceNotFoundException;
 
 /**
@@ -51,9 +53,20 @@ public class UserProfileDaoImpl implements UserProfileDao{
 	 */
 	@Override
 	public UserProfileEntity createUserProfile(UserProfileEntity user) {
-		
-		UserProfileEntity createdUser = entityManager.merge(user);
-		entityManager.flush();
+		UserProfileEntity createdUser = null;
+		try{
+			 createdUser = entityManager.merge(user);
+			 entityManager.flush();
+		}catch (Exception e) {
+		    Throwable t = e.getCause();
+		    while ((t != null) && !(t instanceof ConstraintViolationException)) {
+		        t = t.getCause();
+		    }
+		    if (t instanceof ConstraintViolationException) {
+		    	throw new DuplicateEntryException(e.getMessage());
+		    }
+		    throw e;
+		}
 		return createdUser;
 	}
 	
